@@ -1,32 +1,22 @@
 package com.lugq.app.network.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
+import java.util.Base64;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.lugq.app.config.AppMessage;
 import com.lugq.app.helper.annotation.AnnotationManager;
 import com.lugq.app.logic.handler.AppLogicHandler;
 import com.lugq.app.network.BaseResponse;
 import com.lugq.app.network.SBMessage;
-import com.lugq.app.network.SBMessageFile;
 import com.lugq.app.util.LangUtil;
 
 @WebServlet(name="AppServlet", urlPatterns="/app")  
-@MultipartConfig 
 public class AppServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -47,28 +37,15 @@ public class AppServlet extends HttpServlet {
 		try {
 			int reqid = Integer.parseInt(req.getParameter("reqid"));
 			String data = req.getParameter("data");
-			Collection<Part> parts = null;
-			List<SBMessageFile> files = new ArrayList<SBMessageFile>();
-			if (req.getMethod().equals("POST")) {
-				parts = req.getParts();
-				if (!LangUtil.isEmpty(parts)) {
-					for (Part p : parts) {
-						String type = p.getContentType();
-						long size = p.getSize();
-						String name = p.getSubmittedFileName();
-						String fileData = IOUtils.toString(p.getInputStream());
-						SBMessageFile file = new SBMessageFile();
-						file.setFileData(fileData);
-						file.setFileName(name);
-						file.setFileSize(size);
-						file.setFileType(type);
-						files.add(file);
-					}
-				}
-			} 
-			message.setReq_data(data);
+			if (LangUtil.isEmpty(data)) {
+				logger.error("请求失败:参数错误");
+				BaseResponse response = new BaseResponse(BaseResult.Failure.ordinal(), AppMessage.get(BaseResult.Failure.i18nCode));
+				message.send(response);
+				return;
+			}
+			
+			message.setReq_data(new String(Base64.getDecoder().decode(data)));
 			message.setReq_id(reqid);
-			message.setReq_files(files);
 			AppLogicHandler handler = AnnotationManager.createLogicHandlerInstance(reqid);
 			if (handler != null) {
 				handler.logicProcess(message);
@@ -99,6 +76,25 @@ public class AppServlet extends HttpServlet {
 
 	}
 
+	/*Collection<Part> parts = null;
+	List<SBMessageFile> files = new ArrayList<SBMessageFile>();
+	if (req.getMethod().equals("POST")) {
+		parts = req.getParts();
+		if (!LangUtil.isEmpty(parts)) {
+			for (Part p : parts) {
+				String type = p.getContentType();
+				long size = p.getSize();
+				String name = p.getSubmittedFileName();
+				String fileData = IOUtils.toString(p.getInputStream());
+				SBMessageFile file = new SBMessageFile();
+				file.setFileData(fileData);
+				file.setFileName(name);
+				file.setFileSize(size);
+				file.setFileType(type);
+				files.add(file);
+			}
+		}
+	} */
 }
 
 

@@ -25,7 +25,7 @@ public class ContextListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent event) {
 		logger.info("Servlet start init");
 		logger.info("加载配置文件");
-		AppConfig.getInstance().loadConfig();
+		AppConfig.getInstance();
 		logger.info("加载国际化资源");
 		AppMessage.loadMessage();
 		logger.info("加载自定义标签");

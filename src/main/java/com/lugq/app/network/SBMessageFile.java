@@ -8,10 +8,10 @@ public class SBMessageFile {
 	private String fileType = "";
 
 	private String fileName = "";
+	
+	private String fileUrl = "";
 
 	private long fileSize = 0L;
-
-	private String fileData = "";
 
 	public String getFileType() {
 		return fileType;
@@ -37,13 +37,12 @@ public class SBMessageFile {
 		this.fileSize = fileSize;
 	}
 
-	public String getFileData() {
-		return fileData;
+	public String getFileUrl() {
+		return fileUrl;
 	}
 
-	public void setFileData(String fileData) {
-		this.fileData = fileData;
+	public void setFileUrl(String fileUrl) {
+		this.fileUrl = fileUrl;
 	}
 
-	
 }

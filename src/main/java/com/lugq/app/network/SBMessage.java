@@ -1,8 +1,8 @@
 package com.lugq.app.network;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Base64;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,11 +27,6 @@ public class SBMessage {
 	 */
 	private String req_data = "";
 	
-	/**
-	 * 上传的文件
-	 */
-	private List<SBMessageFile> req_files = new ArrayList<SBMessageFile>();
-	
 	private SBMessageType type = SBMessageType.Http;
 	
 	private HttpServletResponse resp;
@@ -44,14 +39,17 @@ public class SBMessage {
 	public void send(BaseResponse response) {
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();  
-			String json = objectMapper.writeValueAsString(response);  
+			String json = objectMapper.writeValueAsString(response); 
+			String b64Json = Base64.getEncoder().encodeToString(json.getBytes());
 			switch (type) {
 			case Http:
-				resp.getWriter().write(json);
+				resp.getWriter().write(b64Json);
 				break;
 			case WebSocket:
 				break;
 			}
+			logger.debug("resp json:" + json);
+			logger.debug("resp base64:" + b64Json);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e.getLocalizedMessage());
@@ -74,12 +72,4 @@ public class SBMessage {
 		this.req_data = req_data;
 	}
 
-	public List<SBMessageFile> getReq_files() {
-		return req_files;
-	}
-
-	public void setReq_files(List<SBMessageFile> req_files) {
-		this.req_files = req_files;
-	}
-	
 }

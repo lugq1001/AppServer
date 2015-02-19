@@ -2,6 +2,7 @@ package com.lugq.app.logic.handler;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.lugq.app.config.AppConfig;
 import com.lugq.app.config.AppMessage;
 import com.lugq.app.helper.annotation.LogicHandler;
@@ -16,7 +17,7 @@ import com.lugq.app.logic.MessageID;
 @LogicHandler(desc = "用户登录接口", id = MessageID.USR_LOGIN)
 public class LoginHandler extends AppLogicHandler {
 
-	private static Logger logger = LogManager.getLogger(TestHandler.class);
+	private static Logger logger = LogManager.getLogger(LoginHandler.class);
 
 	@Override
 	public void process(SBMessage message) {
@@ -27,18 +28,21 @@ public class LoginHandler extends AppLogicHandler {
 			
 			String username = req.username;
 			String password = req.password;
-			String s = req.s;
-			String c1 = LangUtil.StringRidOfNull(req.custom_1);
-			String c2 = LangUtil.StringRidOfNull(req.custom_2);
+			String s = req.getS();
+			String c1 = LangUtil.StringRidOfNull(req.getCustom_1());
+			String c2 = LangUtil.StringRidOfNull(req.getCustom_2());
 			
 			// 验证MD5
-			if (!MD5Util.md5(username + AppConfig.getInstance().getMagicKey() + password).equals(s)) {
+			String magicKey = AppConfig.getInstance().getNetworkConfig().getMagicKey();
+			if (!MD5Util.md5(username + magicKey + password).equals(s)) {
+				logger.error("验证失败");
 				sendFailureResp(message, LoginResult.FailureVerify, c1, c2);
 				return;
 			}
 			
 			// 用户名为空
 			if (LangUtil.isEmpty(username)) {
+				logger.error("用户名为空");
 				sendFailureResp(message, LoginResult.FailureUserNone, c1, c2);
 				return;
 			}
@@ -48,12 +52,14 @@ public class LoginHandler extends AppLogicHandler {
 			
 			// 用户不存在
 			if (u == null) {
+				logger.error("用户:" + username + " 不存在");
 				sendFailureResp(message, LoginResult.FailureUserNone, c1, c2);
 				return;
 			}
 			
 			// 密码错误
 			if (!u.getPassword().equals(password)) {
+				logger.error("用户:" + username + " 密码错误");
 				sendFailureResp(message, LoginResult.FailurePasswordError, c1, c2);
 				return;
 			}
@@ -69,15 +75,16 @@ public class LoginHandler extends AppLogicHandler {
 			logger.info("用户:" + req.username + "密码:" + req.password + " 登录成功");
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e.getLocalizedMessage());
 			sendFailureResp(message, LoginResult.Failure, "", "");
 		}
 	}
 
-	private class LoginRequest extends BaseRequest {
-
+	private static class LoginRequest extends BaseRequest {
+		
 		public String username;
 		public String password;
-
+	
 	}
 	
 	public class LoginResponse extends BaseResponse {
