@@ -7,7 +7,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.lugq.app.handler.AppLogicHandler;
+import com.lugq.app.logic.handler.AppLogicHandler;
 import com.lugq.app.util.PackageUtil;
 
 public class AnnotationManager {
@@ -32,18 +32,19 @@ public class AnnotationManager {
 	}
 	
 	public static AppLogicHandler createLogicHandlerInstance(int messageID) {
+		AppLogicHandler handler = null;
 		Class<?> clazz = logicHandlers.get(messageID);
-		try {
-			AppLogicHandler handler = (AppLogicHandler) clazz.newInstance();
-			return handler;
-		} catch (InstantiationException e) {
-			
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			
-			e.printStackTrace();
+		if (clazz != null) {
+			try {
+				handler = (AppLogicHandler) clazz.newInstance();
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				
+				e.printStackTrace();
+			}
 		}
-		return null;
+		return handler;
 		
 	}
 	

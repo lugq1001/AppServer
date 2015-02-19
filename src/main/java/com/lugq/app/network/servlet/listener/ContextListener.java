@@ -1,4 +1,4 @@
-package com.lugq.app.servlet.listener;
+package com.lugq.app.network.servlet.listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

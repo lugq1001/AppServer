@@ -1,4 +1,4 @@
-package com.lugq.app.model;
+package com.lugq.app.logic.model;
 
 public class User {
 
