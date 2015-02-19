@@ -32,14 +32,21 @@ public class AppConfig {
 
 	public void loadConfig() {
 		File xml = new File(AppConfig.class.getResource("/AppConfig.xml").getFile());
+		if (!xml.exists()) {
+			logger.error("解析AppConfig.xml失败: AppConfig.xml文件不存在。");
+			return;
+		} 
 		SAXReader sr = new SAXReader();
 		try {
+			logger.info("解析AppConfig.xml:");
 			Document doc = sr.read(xml);
 			Element node = doc.getRootElement();
 			{// magicKey
 				Element element = node.element("magicKey");  
 				this.magicKey = element.getText();
+				logger.info("magicKey:" + this.magicKey);
 			}
+			logger.info("AppConfig.xml 解析成功");
 		} catch (DocumentException e) {
 			e.printStackTrace();
 			logger.error("解析AppConfig.xml失败:" + e.getLocalizedMessage());

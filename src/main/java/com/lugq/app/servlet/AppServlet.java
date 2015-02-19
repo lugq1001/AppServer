@@ -12,6 +12,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.lugq.app.config.AppConfig;
+import com.lugq.app.handler.AppLogicHandler;
+import com.lugq.app.handler.MessageID;
+import com.lugq.app.helper.annotation.AnnotationManager;
 import com.lugq.app.model.User;
 
 @WebServlet(name="AppServlet", urlPatterns="/app")
@@ -31,17 +34,20 @@ public class AppServlet extends HttpServlet {
 	}
 	
 	private void handler(HttpServletRequest req, HttpServletResponse resp) {
-		AppConfig.getInstance();
+/*		AppConfig.getInstance();
 		String s = req.getParameter("s");
 		logger.debug(s);
 		User u = new User();
-		u.setName(s);
+		u.setName(s);*/
 		try {
-			resp.getWriter().write(s);
+			resp.getWriter().write("12312312");
 		} catch (IOException e) {
 			e.printStackTrace();
 			logger.error(e.getMessage());
 		}
+		
+		AppLogicHandler handler = AnnotationManager.createLogicHandlerInstance(MessageID.LOGIN);
+		handler.logicProcess();
 	}
 	
 }
