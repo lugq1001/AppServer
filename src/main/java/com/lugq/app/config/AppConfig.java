@@ -1,8 +1,13 @@
 package com.lugq.app.config;
 
 import java.io.File;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 
 public class AppConfig {
 
@@ -32,7 +37,7 @@ public class AppConfig {
 			logger.error("解析AppConfig.xml失败: AppConfig.xml文件不存在。");
 			return;
 		} 
-		/*SAXReader sr = new SAXReader();
+		SAXReader sr = new SAXReader();
 		try {
 			logger.info("解析AppConfig.xml:");
 			Document doc = sr.read(xml);
@@ -46,7 +51,7 @@ public class AppConfig {
 		} catch (DocumentException e) {
 			e.printStackTrace();
 			logger.error("解析AppConfig.xml失败:" + e.getLocalizedMessage());
-		}*/
+		}
 		return;
 	}
 
