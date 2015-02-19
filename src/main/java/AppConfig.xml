@@ -2,5 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/2002/xmlspec/dtd/2.10/xmlspec.dtd">
 
 <AppConfig>
+	
+	<server>
+		<name>AppServer</name>
+		<versionName>1.0</versionName>
+		<versionCode>1</versionCode>
+	</server>
+	
 	<magicKey>SG$%^HFGGHJKFH#$%FGHJHJKH#$%#@#$FGH</magicKey>
+	
 </AppConfig>

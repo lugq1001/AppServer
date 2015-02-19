@@ -17,6 +17,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.lugq.app.config.AppMessage;
 import com.lugq.app.helper.annotation.AnnotationManager;
 import com.lugq.app.logic.handler.AppLogicHandler;
 import com.lugq.app.network.BaseResponse;
@@ -74,20 +75,28 @@ public class AppServlet extends HttpServlet {
 			} else {
 				// 无效请求
 				logger.error("请求失败:参数错误");
-				BaseResponse response = new BaseResponse(BaseResult.Failure.ordinal(), "参数错误");
+				BaseResponse response = new BaseResponse(BaseResult.Failure.ordinal(), AppMessage.get(BaseResult.Failure.i18nCode));
 				message.send(response);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("请求失败:" + e.getMessage());
-			BaseResponse response = new BaseResponse(BaseResult.Failure.ordinal(), "参数错误");
+			BaseResponse response = new BaseResponse(BaseResult.Failure.ordinal(), AppMessage.get(BaseResult.Failure.i18nCode));
 			message.send(response);
 		}
 	}
 	
 	private enum BaseResult {
-		Success, Failure
+		Success("base.succ"), 
+		Failure("base.failure");
+		
+		public String i18nCode;
+		
+		private BaseResult(String i18nCode) {
+			this.i18nCode = i18nCode;
+		}
+
 	}
 
 }

@@ -19,11 +19,11 @@ public abstract class AppLogicHandler {
 	public abstract void process(SBMessage message);
 	
 	public void logicProcess(SBMessage message) {
-		logger.info("接收请求:" + message.getReq_data());
+		logger.debug("接收请求:" + message.getReq_data());
 		if (!LangUtil.isEmpty(message.getReq_files())) {
-			logger.info("请求包含文件：");
+			logger.debug("请求包含文件：");
 			for (SBMessageFile file : message.getReq_files()) {
-				logger.info("文件类型:" + file.getFileType() + " 文件名:" + file.getFileName() + " 文件大小:" + file.getFileSize());
+				logger.debug("文件类型:" + file.getFileType() + " 文件名:" + file.getFileName() + " 文件大小:" + file.getFileSize());
 			}
 		}
 		process(message);
