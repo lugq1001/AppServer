@@ -7,28 +7,18 @@ package com.lugq.app.network;
  */
 public class BaseResponse {
 
-	private int retCode = -1;
+	public int reqid = -1;
 	
-	private String retMsg = "";
+	public int retCode = -1;
+	
+	public String retMsg = "";
+	
+	public String custom_1 = "";
+	
+	public String custom_2 = "";
 	
 	public BaseResponse(int retCode, String retMsg) {
 		this.retCode = retCode;
-		this.retMsg = retMsg;
-	}
-
-	public int getRetCode() {
-		return retCode;
-	}
-
-	public void setRetCode(int retCode) {
-		this.retCode = retCode;
-	}
-
-	public String getRetMsg() {
-		return retMsg;
-	}
-
-	public void setRetMsg(String retMsg) {
 		this.retMsg = retMsg;
 	}
 	

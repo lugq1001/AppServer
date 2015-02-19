@@ -3,6 +3,7 @@ package com.lugq.app.logic.handler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lugq.app.network.SBMessage;
 import com.lugq.app.network.SBMessageFile;
 import com.lugq.app.util.LangUtil;
@@ -16,6 +17,8 @@ public abstract class AppLogicHandler {
 
 	private static Logger logger = LogManager.getLogger(AppLogicHandler.class);
 	
+	protected ObjectMapper objMapper = new ObjectMapper();
+	
 	public abstract void process(SBMessage message);
 	
 	public void logicProcess(SBMessage message) {
@@ -28,4 +31,5 @@ public abstract class AppLogicHandler {
 		}
 		process(message);
 	}
+	
 }

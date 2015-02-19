@@ -2,7 +2,6 @@ package com.lugq.app.logic.handler;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.lugq.app.config.AppMessage;
 import com.lugq.app.helper.annotation.LogicHandler;
 import com.lugq.app.logic.MessageID;
