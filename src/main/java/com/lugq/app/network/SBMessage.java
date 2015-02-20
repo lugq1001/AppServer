@@ -1,6 +1,5 @@
 package com.lugq.app.network;
 
-import java.util.Base64;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
@@ -40,16 +39,16 @@ public class SBMessage {
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();  
 			String json = objectMapper.writeValueAsString(response); 
-			String b64Json = Base64.getEncoder().encodeToString(json.getBytes());
+			//String b64Json = Base64.getEncoder().encodeToString(json.getBytes());
 			switch (type) {
 			case Http:
-				resp.getWriter().write(b64Json);
+				resp.getWriter().write(json);
 				break;
 			case WebSocket:
 				break;
 			}
 			logger.debug("resp json:" + json);
-			logger.debug("resp base64:" + b64Json);
+			//logger.debug("resp base64:" + b64Json);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e.getLocalizedMessage());

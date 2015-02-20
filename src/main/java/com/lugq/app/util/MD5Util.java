@@ -1,31 +1,31 @@
 package com.lugq.app.util;
 
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class MD5Util {
 
 	public static String md5(String inStr) {
-		MessageDigest md5 = null;
+		String s  = null;
+	    char hexDigist[] = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+	    MessageDigest md = null;
 		try {
-			md5 = MessageDigest.getInstance("MD5");
-		} catch (Exception e) {
+			md = MessageDigest.getInstance("MD5");
+		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
-			return "";
 		}
-		char[] charArray = inStr.toCharArray();
-		byte[] byteArray = new byte[charArray.length];
+	    md.update(inStr.getBytes());
+	    byte[] datas = md.digest(); //16个字节的长整数
+	    char[] str = new char[2*16];
+	    int k = 0;
+	    for(int i=0;i<16;i++){
+	      byte b   = datas[i];
+	      str[k++] = hexDigist[b>>>4 & 0xf];//高4位
+	      str[k++] = hexDigist[b & 0xf];//低4位
+	    }
+	    s = new String(str);
+	    return s;
 
-		for (int i = 0; i < charArray.length; i++)
-			byteArray[i] = (byte) charArray[i];
-		byte[] md5Bytes = md5.digest(byteArray);
-		StringBuffer hexValue = new StringBuffer();
-		for (int i = 0; i < md5Bytes.length; i++) {
-			int val = ((int) md5Bytes[i]) & 0xff;
-			if (val < 16)
-				hexValue.append("0");
-			hexValue.append(Integer.toHexString(val));
-		}
-		return hexValue.toString();
 	}
 	
 	public static void main(String args[]) {

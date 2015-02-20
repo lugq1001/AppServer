@@ -11,6 +11,12 @@ import org.mongodb.morphia.query.UpdateResults;
 import com.mongodb.WriteConcern;
 import com.mongodb.WriteResult;
 
+/**
+ * Mogo CRUD封装
+ * @author Luguangqing
+ *
+ * @param <T>
+ */
 public class MongoDao<T> extends BasicDAO<T, ObjectId> {
 
 	public MongoDao(Class<T> entityClass, Datastore ds) {

@@ -1,7 +1,6 @@
 package com.lugq.app.network.servlet;
 
 import java.io.IOException;
-import java.util.Base64;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,7 +43,7 @@ public class AppServlet extends HttpServlet {
 				return;
 			}
 			
-			message.setReq_data(new String(Base64.getDecoder().decode(data)));
+			message.setReq_data(data);
 			message.setReq_id(reqid);
 			AppLogicHandler handler = AnnotationManager.createLogicHandlerInstance(reqid);
 			if (handler != null) {

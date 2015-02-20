@@ -15,7 +15,7 @@
 
 	<mongoConfig>
 		<ip>127.0.0.1</ip>
-		<port>65342</port>
+		<port>27017</port>
 		<dbName>appServer</dbName>
 		<poolSize>10</poolSize>
 		<threadsAllowedToBlockForConnectionMultiplier>5</threadsAllowedToBlockForConnectionMultiplier>

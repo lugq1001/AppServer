@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import com.lugq.app.config.AppConfig;
 import com.lugq.app.config.AppMessage;
 import com.lugq.app.helper.annotation.LogicHandler;
-import com.lugq.app.model.User;
+import com.lugq.app.model.entity.User;
 import com.lugq.app.network.BaseRequest;
 import com.lugq.app.network.BaseResponse;
 import com.lugq.app.network.SBMessage;
@@ -23,27 +23,26 @@ public class LoginHandler extends AppLogicHandler {
 	public void process(SBMessage message) {
 		try {
 			String reqData = message.getReq_data();
-			logger.debug(message.getReq_data());
+			logger.debug(reqData);
 			LoginRequest req = objMapper.readValue(reqData, LoginRequest.class);
 			
 			String username = req.username;
 			String password = req.password;
 			String s = req.getS();
-			String c1 = LangUtil.StringRidOfNull(req.getCustom_1());
-			String c2 = LangUtil.StringRidOfNull(req.getCustom_2());
 			
 			// 验证MD5
 			String magicKey = AppConfig.getInstance().getNetworkConfig().getMagicKey();
-			if (!MD5Util.md5(username + magicKey + password).equals(s)) {
-				logger.error("验证失败");
-				sendFailureResp(message, LoginResult.FailureVerify, c1, c2);
+			String verify = MD5Util.md5(username + magicKey + password);
+			if (!verify.equals(s)) {
+				logger.debug("-登录失败-验证错误");
+				sendFailureResp(message, LoginResult.FailureVerify);
 				return;
 			}
 			
 			// 用户名为空
 			if (LangUtil.isEmpty(username)) {
-				logger.error("用户名为空");
-				sendFailureResp(message, LoginResult.FailureUserNone, c1, c2);
+				logger.debug("-登录失败-用户名为空");
+				sendFailureResp(message, LoginResult.FailureUserNone);
 				return;
 			}
 			
@@ -52,15 +51,15 @@ public class LoginHandler extends AppLogicHandler {
 			
 			// 用户不存在
 			if (u == null) {
-				logger.error("用户:" + username + " 不存在");
-				sendFailureResp(message, LoginResult.FailureUserNone, c1, c2);
+				logger.debug("-登录失败-" + username + " 不存在");
+				sendFailureResp(message, LoginResult.FailureUserNone);
 				return;
 			}
 			
 			// 密码错误
 			if (!u.getPassword().equals(password)) {
-				logger.error("用户:" + username + " 密码错误");
-				sendFailureResp(message, LoginResult.FailurePasswordError, c1, c2);
+				logger.debug("-登录失败-" + username + " 密码错误");
+				sendFailureResp(message, LoginResult.FailurePasswordError);
 				return;
 			}
 			
@@ -70,13 +69,14 @@ public class LoginHandler extends AppLogicHandler {
 			
 			// 响应
 			LoginResult result = LoginResult.Success;
-			LoginResponse resp = new LoginResponse(result.ordinal(), AppMessage.get(result.i18nCode), c1, c2);
+			LoginResponse resp = new LoginResponse(result.ordinal(), AppMessage.get(result.i18nCode));
+			resp.user = u;
 			message.send(resp);
-			logger.info("用户:" + req.username + "密码:" + req.password + " 登录成功");
+			logger.info("-登录成功-" + u.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e.getLocalizedMessage());
-			sendFailureResp(message, LoginResult.Failure, "", "");
+			sendFailureResp(message, LoginResult.Failure);
 		}
 	}
 
@@ -89,16 +89,16 @@ public class LoginHandler extends AppLogicHandler {
 	
 	public class LoginResponse extends BaseResponse {
 
-		public LoginResponse(int retCode, String retMsg, String custom_1, String custom_2) {
+		public LoginResponse(int retCode, String retMsg) {
 			super(retCode, retMsg);
-			this.reqid = MessageID.USR_LOGIN;
-			this.custom_1 = custom_1;
-			this.custom_2 = custom_2;
+			reqid = MessageID.USR_LOGIN;
 		}
+		
+		public User user;
 	}
 	
-	private void sendFailureResp(SBMessage message, LoginResult result, String custom_1, String custom_2) {
-		LoginResponse resp = new LoginResponse(result.ordinal(), AppMessage.get(result.i18nCode), custom_1, custom_2);
+	private void sendFailureResp(SBMessage message, LoginResult result) {
+		LoginResponse resp = new LoginResponse(result.ordinal(), AppMessage.get(result.i18nCode));
 		message.send(resp);
 	}
 

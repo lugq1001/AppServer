@@ -37,7 +37,7 @@ public class MongoManager {
 		MongoClient mongo = new MongoClient(addr, opt);
 		Morphia morphia = new Morphia();
 		Datastore ds = morphia.createDatastore(mongo, config.getDbName());
-		ds.ensureIndexes(); // 在标记为@Id的类属性上创建索引
+		ds.ensureIndexes(); // 创建索引
 		ds.ensureCaps(); // 设置默认的mongoDB集合容量
 		return ds;
 	}

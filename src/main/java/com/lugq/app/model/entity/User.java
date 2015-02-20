@@ -1,24 +1,19 @@
-package com.lugq.app.model;
+package com.lugq.app.model.entity;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.bson.types.ObjectId;
+import java.util.List;
+
 import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.query.Query;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lugq.app.dao.mongo.MongoDao;
 import com.lugq.app.dao.mongo.MongoManager;
+import com.lugq.app.model.entity.Sid.EntitySeq;
 
-@Entity("User")
-public class User {
+@Entity(value="user", noClassnameStored = true)
+public class User extends BaseEntity {
 
-	private static Logger logger = LogManager.getLogger(User.class);
-	
-	@Id
-	private ObjectId id;
-
+	@Indexed(unique = true)
 	private String username = "";
 
 	@JsonIgnore
@@ -33,9 +28,6 @@ public class User {
 	@JsonIgnore
 	private long lateseLogin = 0;
 
-	@JsonIgnore
-	private long registerTime = 0;
-
 	/* ======================= DAO ======================= */
 
 	private static MongoDao<User> getDao() {
@@ -44,6 +36,9 @@ public class User {
 
 	public void save() {
 		MongoDao<User> dao = getDao();
+		if (sid == null) {
+			sid = Sid.getNextSequence(EntitySeq.User) + "";
+		}
 		dao.save(this);
 	}
 
@@ -53,7 +48,22 @@ public class User {
 		User u = dao.findOne(q);
 		return u;
 	}
-
+	
+	public static User findBySid(String sid) {
+		MongoDao<User> dao = getDao();
+		Query<User> q = dao.createQuery("sid", sid);
+		User u = dao.findOne(q);
+		return u;
+	}
+	
+	public static List<User> findAll() {
+		MongoDao<User> dao = getDao();
+		//Query<User> q = dao.createQuery().limit(3).order("-sid").offset(2);
+		//q.filter(condition, value)
+		List<User> users = dao.find().asList();
+		return users;
+	}
+	
 	public String getPassword() {
 		return password;
 	}
@@ -102,12 +112,21 @@ public class User {
 		this.cellphone = cellphone;
 	}
 
-	public long getRegisterTime() {
-		return registerTime;
-	}
-
-	public void setRegisterTime(long registerTime) {
-		this.registerTime = registerTime;
+	@Override
+	public String toString() {
+		StringBuffer b = new StringBuffer();
+		b.append("\n");
+		b.append("****************User*********************\n");
+		b.append("ObjectId:" + id + "\n");
+		b.append("sid:" + sid + "\n");
+		b.append("createAt:" + createAt + "\n");
+		b.append("username:" + username + "\n");
+		b.append("nickname:" + nickname + "\n");
+		b.append("avatar:" + avatar + "\n");
+		b.append("cellphone:" + cellphone + "\n");
+		b.append("latestLogin:" + lateseLogin + "\n");
+		b.append("*****************************************\n");
+		return b.toString();
 	}
 
 }
