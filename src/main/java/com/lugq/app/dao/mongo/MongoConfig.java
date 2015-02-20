@@ -10,7 +10,7 @@ public class MongoConfig {
 	private String ip = "";
 
 	@JacksonXmlProperty(localName = "port")
-	private int port = 100;
+	private int port = 0;
 
 	@JacksonXmlProperty(localName = "dbName")
 	private String dbName = "";

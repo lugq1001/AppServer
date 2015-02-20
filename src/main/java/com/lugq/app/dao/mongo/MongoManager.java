@@ -13,10 +13,12 @@ import com.mongodb.MongoClientOptions;
 import com.mongodb.ServerAddress;
 
 public class MongoManager {
-	
+
 	private static Logger logger = LogManager.getLogger(MongoManager.class);
-	
-	public Datastore getDb() {
+
+	public static Datastore store = null;
+
+	static {
 		MongoConfig config = AppConfig.getInstance().getMongoConfig();
 		MongoClientOptions.Builder builder = MongoClientOptions.builder();
 		builder.connectionsPerHost(config.getPoolSize());
@@ -26,7 +28,7 @@ public class MongoManager {
 		builder.socketTimeout(config.getSocketTimeout());
 		builder.socketKeepAlive(config.isSocketKeepAlive());
 		MongoClientOptions opt = builder.build();
-		
+
 		ServerAddress addr = null;
 		try {
 			addr = new ServerAddress(config.getIp(), config.getPort());
@@ -36,9 +38,8 @@ public class MongoManager {
 		}
 		MongoClient mongo = new MongoClient(addr, opt);
 		Morphia morphia = new Morphia();
-		Datastore ds = morphia.createDatastore(mongo, config.getDbName());
-		ds.ensureIndexes(); // 创建索引
-		ds.ensureCaps(); // 设置默认的mongoDB集合容量
-		return ds;
+		store = morphia.createDatastore(mongo, config.getDbName());
+		store.ensureIndexes(); // 创建索引
+		store.ensureCaps(); // 设置默认的mongoDB集合容量
 	}
 }

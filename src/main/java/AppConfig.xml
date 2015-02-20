@@ -25,4 +25,14 @@
 		<socketKeepAlive>false</socketKeepAlive>
 	</mongoConfig>
 
+	<redisConfig>
+		<ip>127.0.0.1</ip>
+		<port>6379</port>
+		<maxIdle>10</maxIdle>
+		<maxWaitMillis>10000</maxWaitMillis>
+		<testWhileIdle>true</testWhileIdle>
+		<testOnBorrow>false</testOnBorrow>
+		<testOnReturn>false</testOnReturn>
+	</redisConfig>
+
 </AppConfig>

@@ -1,7 +1,6 @@
 package com.lugq.app.model.entity;
 
 import java.util.List;
-
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.query.Query;
@@ -31,7 +30,7 @@ public class User extends BaseEntity {
 	/* ======================= DAO ======================= */
 
 	private static MongoDao<User> getDao() {
-		return new MongoDao<User>(User.class, new MongoManager().getDb());
+		return new MongoDao<User>(User.class, MongoManager.store);
 	}
 
 	public void save() {

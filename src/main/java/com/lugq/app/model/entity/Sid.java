@@ -37,7 +37,7 @@ public class Sid {
 	/* ======================= DAO ======================= */
 
 	private static MongoDao<Sid> getDao() {
-		return new MongoDao<Sid>(Sid.class, new MongoManager().getDb());
+		return new MongoDao<Sid>(Sid.class, MongoManager.store);
 	}
 
 	public static long getNextSequence(EntitySeq entitySeq) {

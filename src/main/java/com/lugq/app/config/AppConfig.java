@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.lugq.app.dao.mongo.MongoConfig;
+import com.lugq.app.dao.redis.RedisConfig;
 
 @JacksonXmlRootElement(localName = "AppConfig")
 public class AppConfig {
@@ -19,6 +20,8 @@ public class AppConfig {
 	private NetworkConfig networkConfig;
 	
 	private MongoConfig mongoConfig;
+	
+	private RedisConfig redisConfig;
 	
 	private static AppConfig instance = null;
 
@@ -62,6 +65,15 @@ public class AppConfig {
 			logger.info("connectTimeout:" + mongoConfig.getConnectTimeout());
 			logger.info("socketTimeout:" + mongoConfig.getSocketTimeout());
 			logger.info("socketKeepAlive:" + mongoConfig.isSocketKeepAlive());	
+			logger.info("===========RedisConfig=================");
+			RedisConfig redisConfig = config.getRedisConfig();
+			logger.info("ip:" + redisConfig.getIp());
+			logger.info("port:" + redisConfig.getPort());
+			logger.info("maxIdle:" + redisConfig.getMaxIdle());
+			logger.info("maxWaitMillis:" + redisConfig.getMaxWaitMillis());
+			logger.info("testOnBorrow:" + redisConfig.isTestOnBorrow());
+			logger.info("testOnReturn():" + redisConfig.isTestOnReturn());
+			logger.info("testWhileIdle:" + redisConfig.isTestWhileIdle());	
 			logger.info("=======================================");
 			logger.info("AppConfig.xml 读取成功");
 		} catch (Exception e) {
@@ -93,6 +105,14 @@ public class AppConfig {
 
 	public void setMongoConfig(MongoConfig mongoConfig) {
 		this.mongoConfig = mongoConfig;
+	}
+
+	public RedisConfig getRedisConfig() {
+		return redisConfig;
+	}
+
+	public void setRedisConfig(RedisConfig redisConfig) {
+		this.redisConfig = redisConfig;
 	}
 
 	

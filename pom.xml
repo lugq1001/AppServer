@@ -17,6 +17,7 @@
 		<jackson-version>2.5.1</jackson-version>
 		<mongo-version>2.13.0</mongo-version>
 		<morphia-version>0.110</morphia-version>
+		<jedis-version>2.6.2</jedis-version>
 	</properties>
 
 	<dependencies>
@@ -83,8 +84,12 @@
 			<artifactId>morphia</artifactId>
 			<version>${morphia-version}</version>
 		</dependency>
-
-
+		<!-- redis -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>${jedis-version}</version>
+		</dependency>
 
 	</dependencies>
 
