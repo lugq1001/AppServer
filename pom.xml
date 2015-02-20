@@ -15,6 +15,8 @@
 		<javax.servlet-version>3.1.0</javax.servlet-version>
 		<log4j-version>2.1</log4j-version>
 		<jackson-version>2.5.1</jackson-version>
+		<mongo-version>2.13.0</mongo-version>
+		<morphia-version>0.110</morphia-version>
 	</properties>
 
 	<dependencies>
@@ -68,6 +70,22 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
 		</dependency>
+
+		<!-- mongo -->
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>${mongo-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mongodb.morphia</groupId>
+			<artifactId>morphia</artifactId>
+			<version>${morphia-version}</version>
+		</dependency>
+
+
+
 	</dependencies>
 
 	<build>

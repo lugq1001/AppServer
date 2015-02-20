@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.lugq.app.dao.mongo.MongoConfig;
 
 @JacksonXmlRootElement(localName = "AppConfig")
 public class AppConfig {
@@ -15,7 +16,9 @@ public class AppConfig {
 
 	private ServerConfig serverConfig;	
 	
-	private NetworkConfig networkConfig;	
+	private NetworkConfig networkConfig;
+	
+	private MongoConfig mongoConfig;
 	
 	private static AppConfig instance = null;
 
@@ -40,15 +43,26 @@ public class AppConfig {
 			logger.info("读取AppConfig.xml:");
 			XmlMapper mapper = new XmlMapper();
 			config = mapper.readValue(xml, AppConfig.class);
-			logger.info("===========================");
+			logger.info("===========ServerConfig================");
 			ServerConfig serverConfig = config.getServerConfig();
 			logger.info("serverName:" + serverConfig.getName());
 			logger.info("serverVersionName:" + serverConfig.getVerName());
 			logger.info("serverVersionCode:" + serverConfig.getVerCode());
-			logger.info("===========================");
+			logger.info("===========NetworkConfig===============");
 			NetworkConfig networkConfig = config.getNetworkConfig();
 			logger.info("magicKey:" + networkConfig.getMagicKey());
-			logger.info("===========================");
+			logger.info("===========MongoConfig=================");
+			MongoConfig mongoConfig = config.getMongoConfig();
+			logger.info("ip:" + mongoConfig.getIp());
+			logger.info("port:" + mongoConfig.getPort());
+			logger.info("dbName:" + mongoConfig.getDbName());
+			logger.info("poolSize:" + mongoConfig.getPoolSize());
+			logger.info("threadsAllowedToBlockForConnectionMultiplier:" + mongoConfig.getThreadsAllowedToBlockForConnectionMultiplier());
+			logger.info("maxWaitTime:" + mongoConfig.getMaxWaitTime());
+			logger.info("connectTimeout:" + mongoConfig.getConnectTimeout());
+			logger.info("socketTimeout:" + mongoConfig.getSocketTimeout());
+			logger.info("socketKeepAlive:" + mongoConfig.isSocketKeepAlive());	
+			logger.info("=======================================");
 			logger.info("AppConfig.xml 读取成功");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -71,6 +85,14 @@ public class AppConfig {
 
 	public void setNetworkConfig(NetworkConfig networkConfig) {
 		this.networkConfig = networkConfig;
+	}
+
+	public MongoConfig getMongoConfig() {
+		return mongoConfig;
+	}
+
+	public void setMongoConfig(MongoConfig mongoConfig) {
+		this.mongoConfig = mongoConfig;
 	}
 
 	

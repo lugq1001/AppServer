@@ -2,16 +2,27 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/2002/xmlspec/dtd/2.10/xmlspec.dtd">
 
 <AppConfig>
-	
+
 	<serverConfig>
 		<name>AppServer</name>
 		<versionName>1.0</versionName>
 		<versionCode>1</versionCode>
 	</serverConfig>
-	
+
 	<networkConfig>
 		<magicKey>12345</magicKey>
 	</networkConfig>
-	
-	
+
+	<mongoConfig>
+		<ip>127.0.0.1</ip>
+		<port>65342</port>
+		<dbName>appServer</dbName>
+		<poolSize>10</poolSize>
+		<threadsAllowedToBlockForConnectionMultiplier>5</threadsAllowedToBlockForConnectionMultiplier>
+		<maxWaitTime>120000</maxWaitTime>
+		<connectTimeout>10000</connectTimeout>
+		<socketTimeout>0</socketTimeout>
+		<socketKeepAlive>false</socketKeepAlive>
+	</mongoConfig>
+
 </AppConfig>
