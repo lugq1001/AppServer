@@ -17,11 +17,12 @@ import com.lugq.app.logic.MessageID;
 @LogicHandler(desc = "用户注册接口", id = MessageID.USR_REGISTER)
 public class RegisterHandler extends AppServerHandler {
 
-	private static Logger logger = LogManager.getLogger(RegisterHandler.class);
-
+	private static Logger logger = LogManager.getLogger(LoginHandler.class);
+	
 	@Override
 	public void logicProcess(SBMessage message) {
 		try {
+			logger.debug("-用户注册-");
 			String reqData = message.getReq_data();
 			logger.debug(reqData);
 			RegisterRequest req = objMapper.readValue(reqData, RegisterRequest.class);
@@ -63,6 +64,8 @@ public class RegisterHandler extends AppServerHandler {
 				return;
 			}
 			
+			logger.debug("-用户注册-" + " " + username + " " + password);
+			
 			u = new User();
 			u.setUsername(username);
 			u.setPassword(password);
@@ -73,10 +76,10 @@ public class RegisterHandler extends AppServerHandler {
 			RegisterResponse resp = new RegisterResponse(result.ordinal(), AppMessage.get(result.i18nCode));
 			resp.user = u;
 			message.send(resp);
-			logger.info("-注册成功-" + u.toString());
+			logger.debug("-注册成功-" + u.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error(e.getLocalizedMessage());
+			logger.debug("-注册失败-" + e.getLocalizedMessage());
 			sendFailureResp(message, RegisterResult.Failure);
 		}
 	}

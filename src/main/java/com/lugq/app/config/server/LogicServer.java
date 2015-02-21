@@ -19,6 +19,15 @@ public class LogicServer {
 	
 	@JacksonXmlProperty(localName = "magicKey")
 	private String magicKey = "";
+	
+	@JacksonXmlProperty(localName = "host")
+	private String host = "";
+	
+	@JacksonXmlProperty(localName = "port")
+	private int port = 8080;
+	
+	@JacksonXmlProperty(localName = "httpPath")
+	private String httpPath = "AppServer/";
 
 	public boolean isEnable() {
 		return enable;
@@ -43,6 +52,29 @@ public class LogicServer {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	public String getHost() {
+		return host;
+	}
+
+	public void setHost(String host) {
+		this.host = host;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+	public void setPort(int port) {
+		this.port = port;
+	}
+
+	public String getHttpPath() {
+		return httpPath;
+	}
+
+	public void setHttpPath(String httpPath) {
+		this.httpPath = httpPath;
+	}
 	
 }

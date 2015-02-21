@@ -63,5 +63,5 @@ public class ServerConfig {
 	public void setFileServer(FileServer fileServer) {
 		this.fileServer = fileServer;
 	}
-	
+
 }

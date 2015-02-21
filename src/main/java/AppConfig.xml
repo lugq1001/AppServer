@@ -11,11 +11,17 @@
 			<name>logic</name>
 			<enable>true</enable>
 			<magicKey>12345</magicKey>
+			<host>127.0.0.1</host>
+			<port>8080</port>
+			<httpPath>/AppServer</httpPath>
 		</logicServer>
 		<fileServer>
 			<name>file</name>
 			<enable>true</enable>
-			<uploadPath>C:\Users\Administrator\Desktop\AppServer</uploadPath>
+			<host>127.0.0.1</host>
+			<port>8080</port>
+			<uploadPath>C:\Users\Administrator\Desktop\AppServer\</uploadPath>
+			<downloadPath>http://192.168.1.95/</downloadPath>
 			<maxFileSize>30000000</maxFileSize>
 		</fileServer>
 	</serverConfig>

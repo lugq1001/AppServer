@@ -22,8 +22,9 @@ public class LoginHandler extends AppServerHandler {
 	@Override
 	public void logicProcess(SBMessage message) {
 		try {
+			logger.debug("-用户登录-");
 			String reqData = message.getReq_data();
-			logger.debug(reqData);
+			logger.debug("-请求数据-" + reqData);
 			LoginRequest req = objMapper.readValue(reqData, LoginRequest.class);
 			
 			String username = req.username;
@@ -63,19 +64,20 @@ public class LoginHandler extends AppServerHandler {
 				return;
 			}
 			
+			long time = System.currentTimeMillis();
 			// 更新用户最后登录时间
-			u.setLateseLogin(System.currentTimeMillis());
+			u.setLateseLogin(time);
 			u.save();
-			
+			logger.debug("-更新用户最后登录时间-" + time);
 			// 响应
 			LoginResult result = LoginResult.Success;
 			LoginResponse resp = new LoginResponse(result.ordinal(), AppMessage.get(result.i18nCode));
 			resp.user = u;
 			message.send(resp);
-			logger.info("-登录成功-" + u.toString());
+			logger.debug("-登录成功-" + u.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error(e.getLocalizedMessage());
+			logger.debug("-登录失败-" + e.getLocalizedMessage());
 			sendFailureResp(message, LoginResult.Failure);
 		}
 	}

@@ -20,9 +20,18 @@ public class FileServer {
 	@JacksonXmlProperty(localName = "uploadPath")
 	private String uploadPath = "";
 	
+	@JacksonXmlProperty(localName = "downloadPath")
+	private String downloadPath = "";
+	
 	@JacksonXmlProperty(localName = "maxFileSize")
 	private int maxFileSize = 30000000;
-
+	
+	@JacksonXmlProperty(localName = "host")
+	private String host = "";
+	
+	@JacksonXmlProperty(localName = "port")
+	private int port = 8080;
+	
 	public String getName() {
 		return name;
 	}
@@ -53,6 +62,29 @@ public class FileServer {
 
 	public void setMaxFileSize(int maxFileSize) {
 		this.maxFileSize = maxFileSize;
-	} 
-	
+	}
+
+	public String getHost() {
+		return host;
+	}
+
+	public void setHost(String host) {
+		this.host = host;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+	public void setPort(int port) {
+		this.port = port;
+	}
+
+	public String getDownloadPath() {
+		return downloadPath;
+	}
+
+	public void setDownloadPath(String downloadPath) {
+		this.downloadPath = downloadPath;
+	}
 }

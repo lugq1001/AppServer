@@ -17,6 +17,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.lugq.app.config.AppConfig;
 import com.lugq.app.config.AppMessage;
 import com.lugq.app.helper.annotation.AnnotationManager;
 import com.lugq.app.logic.handler.AppServerHandler;
@@ -53,6 +54,14 @@ public class UploadServlet extends HttpServlet {
 				} else if (name.equals("data")) {
 					data = IOUtils.toString(p.getInputStream());
 				} else {
+					long maxSize = AppConfig.getInstance().getServerConfig().getFileServer().getMaxFileSize();
+					if (p.getSize() > maxSize) {
+						// 无效请求
+						logger.debug("请求失败:文件过大");
+						BaseResponse response = new BaseResponse(BaseResult.Failure.ordinal(), AppMessage.get(BaseResult.Failure.i18nCode));
+						message.send(response);
+						return;
+					}
 					String type = p.getContentType();
 					long size = p.getSize();
 					String fileName = p.getSubmittedFileName();

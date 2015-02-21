@@ -63,12 +63,18 @@ public class AppConfig {
 			logger.info("logicServer-name:" + logic.getName());
 			logger.info("logicServer-enable:" + logic.isEnable());
 			logger.info("logicServer-magicKey:" + logic.getMagicKey());
+			logger.info("logicServer-host:" + logic.getHost());
+			logger.info("logicServer-port:" + logic.getPort());
+			logger.info("logicServer-httpPath:" + logic.getHttpPath());
 			logger.info("===========File========================");
 			FileServer file = serverConfig.getFileServer();
 			logger.info("fileServer-name:" + file.getName());
 			logger.info("fileServer-enable:" + file.isEnable());
 			logger.info("fileServer-uploadPath:" + file.getUploadPath());
+			logger.info("fileServer-downloadPath:" + file.getDownloadPath());
 			logger.info("fileServer-maxFileSize:" + file.getMaxFileSize());
+			logger.info("fileServer-host:" + file.getHost());
+			logger.info("fileServer-port:" + file.getPort());
 			logger.info("===========MongoConfig=================");
 			MongoConfig mongoConfig = config.getMongoConfig();
 			logger.info("ip:" + mongoConfig.getIp());

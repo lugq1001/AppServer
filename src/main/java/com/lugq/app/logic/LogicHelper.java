@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.lugq.app.config.AppConfig;
 import com.lugq.app.util.LangUtil;
 
 public class LogicHelper {
@@ -20,5 +21,10 @@ public class LogicHelper {
 			userSid = "trash";
 		String fileName = userSid + sep + messageID + sep + timeHex + sidHex + order + "-" + customName;
 		return fileName;
+	}
+	
+	public static String downloadPathPrefix() {
+		String path = AppConfig.getInstance().getServerConfig().getFileServer().getDownloadPath();
+		return path;
 	}
 }
