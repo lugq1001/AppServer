@@ -1,8 +1,13 @@
-package com.lugq.app.config;
+package com.lugq.app.config.server;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
+/**
+ * 服务器配置
+ * @author Luguangqing
+ *
+ */
 @JacksonXmlRootElement(localName = "serverConfig")
 public class ServerConfig {
 
@@ -14,7 +19,11 @@ public class ServerConfig {
 	
 	@JacksonXmlProperty(localName = "versionCode")
 	private int verCode = 1;
-
+	
+	private LogicServer logicServer;
+	
+	private FileServer fileServer;
+	
 	public String getName() {
 		return name;
 	}
@@ -38,5 +47,21 @@ public class ServerConfig {
 	public void setVerCode(int verCode) {
 		this.verCode = verCode;
 	}
-	
+
+	public LogicServer getLogicServer() {
+		return logicServer;
+	}
+
+	public void setLogicServer(LogicServer logicServer) {
+		this.logicServer = logicServer;
+	}
+
+	public FileServer getFileServer() {
+		return fileServer;
+	}
+
+	public void setFileServer(FileServer fileServer) {
+		this.fileServer = fileServer;
+	}
+
 }

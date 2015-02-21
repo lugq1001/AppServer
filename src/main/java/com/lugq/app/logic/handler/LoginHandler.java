@@ -15,15 +15,16 @@ import com.lugq.app.util.MD5Util;
 import com.lugq.app.logic.MessageID;
 
 @LogicHandler(desc = "用户登录接口", id = MessageID.USR_LOGIN)
-public class LoginHandler extends AppLogicHandler {
+public class LoginHandler extends AppServerHandler {
 
 	private static Logger logger = LogManager.getLogger(LoginHandler.class);
-
+	
 	@Override
-	public void process(SBMessage message) {
+	public void logicProcess(SBMessage message) {
 		try {
+			logger.debug("-用户登录-");
 			String reqData = message.getReq_data();
-			logger.debug(reqData);
+			logger.debug("-请求数据-" + reqData);
 			LoginRequest req = objMapper.readValue(reqData, LoginRequest.class);
 
 			String username = req.username;
@@ -31,7 +32,7 @@ public class LoginHandler extends AppLogicHandler {
 			String s = req.getS();
 
 			// 验证MD5
-			String magicKey = AppConfig.getInstance().getNetworkConfig().getMagicKey();
+			String magicKey = AppConfig.getInstance().getServerConfig().getLogicServer().getMagicKey();
 			String verify = MD5Util.md5(username + magicKey + password);
 			if (!verify.equals(s)) {
 				logger.debug("-登录失败-验证错误");
@@ -62,20 +63,29 @@ public class LoginHandler extends AppLogicHandler {
 				sendFailureResp(message, LoginResult.FailurePasswordError);
 				return;
 			}
+<<<<<<< HEAD
 
+=======
+			
+			long time = System.currentTimeMillis();
+>>>>>>> origin/master
 			// 更新用户最后登录时间
-			u.setLateseLogin(System.currentTimeMillis());
+			u.setLateseLogin(time);
 			u.save();
+<<<<<<< HEAD
 
+=======
+			logger.debug("-更新用户最后登录时间-" + time);
+>>>>>>> origin/master
 			// 响应
 			LoginResult result = LoginResult.Success;
 			LoginResponse resp = new LoginResponse(result.ordinal(), AppMessage.get(result.i18nCode));
 			resp.user = u;
 			message.send(resp);
-			logger.info("-登录成功-" + u.toString());
+			logger.debug("-登录成功-" + u.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error(e.getLocalizedMessage());
+			logger.debug("-登录失败-" + e.getLocalizedMessage());
 			sendFailureResp(message, LoginResult.Failure);
 		}
 	}
@@ -117,5 +127,7 @@ public class LoginHandler extends AppLogicHandler {
 	}
 
 
+
+	
 
 }

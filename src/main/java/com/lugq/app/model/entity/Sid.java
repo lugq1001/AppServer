@@ -8,7 +8,7 @@ import com.lugq.app.dao.mongo.MongoDao;
 import com.lugq.app.dao.mongo.MongoManager;
 
 /**
- * 自增id
+ * Mongo自增id实现
  * 
  * @author Luguangqing
  *

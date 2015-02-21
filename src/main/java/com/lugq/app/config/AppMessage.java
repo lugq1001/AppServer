@@ -10,6 +10,11 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * 国际化工具类 message.properties读取
+ * @author Luguangqing
+ *
+ */
 public class AppMessage {
 
 	private static Logger logger = LogManager.getLogger(AppMessage.class);

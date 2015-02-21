@@ -30,8 +30,13 @@ public class ContextListener implements ServletContextListener {
 		AppMessage.loadMessage();
 		logger.info("加载自定义标签");
 		AnnotationManager.initAnnotation();
-		
-		logger.info("Servlet init completed");
+		logger.info("===============================================");
+		logger.info("==   *************************************   ==");
+		logger.info("==   *****                           *****   ==");
+		logger.info("==   *****     Server Started        *****   ==");
+		logger.info("==   *****                           *****   ==");
+		logger.info("==   *************************************   ==");
+		logger.info("===============================================");
 	}
 	
 	
