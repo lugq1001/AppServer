@@ -1,26 +1,33 @@
 package com.lugq.app.config;
 
 import java.io.File;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.lugq.app.config.server.FileServer;
+import com.lugq.app.config.server.LogicServer;
+import com.lugq.app.config.server.ServerConfig;
 import com.lugq.app.dao.mongo.MongoConfig;
 import com.lugq.app.dao.redis.RedisConfig;
 
+/**
+ * Server配置
+ * @author Luguangqing
+ *
+ */
 @JacksonXmlRootElement(localName = "AppConfig")
 public class AppConfig {
 
 	private static Logger logger = LogManager.getLogger(AppConfig.class);
-
+	
+	// 服务器配置
 	private ServerConfig serverConfig;	
 	
-	private NetworkConfig networkConfig;
-	
+	// mongo配置
 	private MongoConfig mongoConfig;
 	
+	// redis配置
 	private RedisConfig redisConfig;
 	
 	private static AppConfig instance = null;
@@ -51,9 +58,17 @@ public class AppConfig {
 			logger.info("serverName:" + serverConfig.getName());
 			logger.info("serverVersionName:" + serverConfig.getVerName());
 			logger.info("serverVersionCode:" + serverConfig.getVerCode());
-			logger.info("===========NetworkConfig===============");
-			NetworkConfig networkConfig = config.getNetworkConfig();
-			logger.info("magicKey:" + networkConfig.getMagicKey());
+			logger.info("===========Logic=======================");
+			LogicServer logic = serverConfig.getLogicServer();
+			logger.info("logicServer-name:" + logic.getName());
+			logger.info("logicServer-enable:" + logic.isEnable());
+			logger.info("logicServer-magicKey:" + logic.getMagicKey());
+			logger.info("===========File========================");
+			FileServer file = serverConfig.getFileServer();
+			logger.info("fileServer-name:" + file.getName());
+			logger.info("fileServer-enable:" + file.isEnable());
+			logger.info("fileServer-uploadPath:" + file.getUploadPath());
+			logger.info("fileServer-maxFileSize:" + file.getMaxFileSize());
 			logger.info("===========MongoConfig=================");
 			MongoConfig mongoConfig = config.getMongoConfig();
 			logger.info("ip:" + mongoConfig.getIp());
@@ -89,14 +104,6 @@ public class AppConfig {
 
 	public void setServerConfig(ServerConfig serverConfig) {
 		this.serverConfig = serverConfig;
-	}
-
-	public NetworkConfig getNetworkConfig() {
-		return networkConfig;
-	}
-
-	public void setNetworkConfig(NetworkConfig networkConfig) {
-		this.networkConfig = networkConfig;
 	}
 
 	public MongoConfig getMongoConfig() {

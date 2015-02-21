@@ -15,12 +15,12 @@ import com.lugq.app.util.MD5Util;
 import com.lugq.app.logic.MessageID;
 
 @LogicHandler(desc = "用户注册接口", id = MessageID.USR_REGISTER)
-public class RegisterHandler extends AppLogicHandler {
+public class RegisterHandler extends AppServerHandler {
 
 	private static Logger logger = LogManager.getLogger(RegisterHandler.class);
 
 	@Override
-	public void process(SBMessage message) {
+	public void logicProcess(SBMessage message) {
 		try {
 			String reqData = message.getReq_data();
 			logger.debug(reqData);
@@ -31,7 +31,7 @@ public class RegisterHandler extends AppLogicHandler {
 			String s = req.getS();
 			
 			// 验证MD5
-			String magicKey = AppConfig.getInstance().getNetworkConfig().getMagicKey();
+			String magicKey = AppConfig.getInstance().getServerConfig().getLogicServer().getMagicKey();
 			String verify = MD5Util.md5(username + magicKey + password);
 			if (!verify.equals(s)) {
 				logger.debug("-注册失败-验证错误");

@@ -7,11 +7,18 @@
 		<name>AppServer</name>
 		<versionName>1.0</versionName>
 		<versionCode>1</versionCode>
+		<logicServer>
+			<name>logic</name>
+			<enable>true</enable>
+			<magicKey>12345</magicKey>
+		</logicServer>
+		<fileServer>
+			<name>file</name>
+			<enable>true</enable>
+			<uploadPath>C:\Users\Administrator\Desktop\AppServer</uploadPath>
+			<maxFileSize>30000000</maxFileSize>
+		</fileServer>
 	</serverConfig>
-
-	<networkConfig>
-		<magicKey>12345</magicKey>
-	</networkConfig>
 
 	<mongoConfig>
 		<ip>127.0.0.1</ip>

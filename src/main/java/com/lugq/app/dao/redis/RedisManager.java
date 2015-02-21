@@ -1,6 +1,5 @@
 package com.lugq.app.dao.redis;
 
-import java.util.function.Function;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -22,9 +21,11 @@ public class RedisManager {
 		pool = new JedisPool(c, config.getIp(), config.getPort());
 	}
 
-	public static void task(Function<Jedis, Boolean> closure) {
-		Jedis j = pool.getResource();
-		closure.apply(j);
+	public static Jedis getResource() {
+		return pool.getResource();
+	}
+	
+	public static void returnResource(Jedis j) {
 		pool.returnResource(j);
 	}
 }

@@ -18,9 +18,18 @@
 		<mongo-version>2.13.0</mongo-version>
 		<morphia-version>0.110</morphia-version>
 		<jedis-version>2.6.2</jedis-version>
+		<commons-lang3-version>3.3.2</commons-lang3-version>
 	</properties>
 
 	<dependencies>
+
+		<!-- commons-lang3 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3-version}</version>
+		</dependency>
+
 		<!-- servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>

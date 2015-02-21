@@ -1,5 +1,8 @@
 package com.lugq.app.network;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
@@ -25,6 +28,11 @@ public class SBMessage {
 	 * json格式参数
 	 */
 	private String req_data = "";
+	
+	/**
+	 * 上传文件
+	 */
+	private List<SBMessageFile> files = new ArrayList<SBMessageFile>();
 	
 	private SBMessageType type = SBMessageType.Http;
 	
@@ -69,6 +77,14 @@ public class SBMessage {
 
 	public void setReq_data(String req_data) {
 		this.req_data = req_data;
+	}
+
+	public List<SBMessageFile> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<SBMessageFile> files) {
+		this.files = files;
 	}
 
 }

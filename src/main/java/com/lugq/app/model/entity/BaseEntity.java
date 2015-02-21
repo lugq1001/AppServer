@@ -5,6 +5,11 @@ import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * 基础Model
+ * @author Luguangqing
+ *
+ */
 public class BaseEntity {
 
 	@Id
