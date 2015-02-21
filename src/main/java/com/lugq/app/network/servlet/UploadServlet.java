@@ -28,7 +28,7 @@ import com.lugq.app.network.SBMessageFile;
 import com.lugq.app.util.LangUtil;
 
 @WebServlet(name="FileUploadServlet", urlPatterns="/file/upload")  
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 10)  
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 30) 
 public class UploadServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
