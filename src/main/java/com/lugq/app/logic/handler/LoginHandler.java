@@ -63,20 +63,11 @@ public class LoginHandler extends AppServerHandler {
 				sendFailureResp(message, LoginResult.FailurePasswordError);
 				return;
 			}
-<<<<<<< HEAD
-
-=======
-			
 			long time = System.currentTimeMillis();
->>>>>>> origin/master
 			// 更新用户最后登录时间
 			u.setLateseLogin(time);
 			u.save();
-<<<<<<< HEAD
-
-=======
 			logger.debug("-更新用户最后登录时间-" + time);
->>>>>>> origin/master
 			// 响应
 			LoginResult result = LoginResult.Success;
 			LoginResponse resp = new LoginResponse(result.ordinal(), AppMessage.get(result.i18nCode));

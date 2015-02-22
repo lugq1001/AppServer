@@ -37,6 +37,9 @@ public class ContextListener implements ServletContextListener {
 		logger.info("==   *****                           *****   ==");
 		logger.info("==   *************************************   ==");
 		logger.info("===============================================");
+		
+		// 测试数据库连接
+		
 	}
 	
 	

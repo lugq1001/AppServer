@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 
 import com.lugq.app.config.AppConfig;
 
-@WebFilter(filterName="LogicFilter",urlPatterns="/logic")
+//@WebFilter(filterName="LogicFilter",urlPatterns="/logic")
 public class LogicFilter implements Filter {
 
 	@Override

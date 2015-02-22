@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebFilter;
 
 import com.lugq.app.config.AppConfig;
 
-@WebFilter(filterName="FileFilter",urlPatterns="/file")
+//@WebFilter(filterName="FileFilter",urlPatterns="/file")
 public class FileFilter implements Filter {
 
 	@Override

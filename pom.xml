@@ -20,9 +20,16 @@
 		<jedis-version>2.6.2</jedis-version>
 		<commons-lang3-version>3.3.2</commons-lang3-version>
 		<httpclient-version>4.4</httpclient-version>
+		<jave-ee-version>7.0</jave-ee-version>
 	</properties>
 
 	<dependencies>
+		<!-- javaee-api -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>${jave-ee-version}</version>
+		</dependency>
 		<!-- commons-lang3 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -109,6 +116,20 @@
 
 	<build>
 		<finalName>AppServer</finalName>
+		<!-- <finalName>${artifactId}-${version}</finalName> -->
+		<!-- <outputDirectory>target/classes</outputDirectory> -->
+		<!-- <testOutputDirectory>target/test-classes</testOutputDirectory> -->
+		<!-- <sourceDirectory>src/main/java</sourceDirectory> -->
+		<!-- <scriptSourceDirectory>src/main/scripts</scriptSourceDirectory> -->
+		<!-- <testSourceDirectory>src/test/java</testSourceDirectory> -->
+		<resources>
+			<resource>
+				<directory>/</directory>
+				
+			</resource>
+		</resources>
+		<!-- <testResources> <testResource> <directory>src/test/resources</directory> 
+			</testResource> </testResources> -->
 		<pluginManagement>
 			<plugins>
 				<plugin>
