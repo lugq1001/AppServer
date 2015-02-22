@@ -34,19 +34,19 @@ public class LogicEndpoint {
 
 	@OnOpen
 	public void onOpen(Session peer) {
-		logger.debug("one session opened.");
+		logger.info("one session opened.");
 		peers.add(peer);
 	}
 
 	@OnClose
 	public void onClose(Session peer) {
-		logger.debug("one session closed.");
+		logger.info("one session closed.");
 		peers.remove(peer);
 	}
 	
 	@OnError
 	public void onError(Session session, Throwable t) {
-		logger.debug("onError.");
+		logger.info("onError.");
 	}
 
 

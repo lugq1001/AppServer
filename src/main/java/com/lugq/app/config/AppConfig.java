@@ -22,13 +22,13 @@ public class AppConfig {
 	private static Logger logger = LogManager.getLogger(AppConfig.class);
 	
 	// 服务器配置
-	private ServerConfig serverConfig;	
+	private ServerConfig serverConfig = new ServerConfig();	
 	
 	// mongo配置
-	private MongoConfig mongoConfig;
+	private MongoConfig mongoConfig = new MongoConfig();
 	
 	// redis配置
-	private RedisConfig redisConfig;
+	private RedisConfig redisConfig = new RedisConfig();
 	
 	private static AppConfig instance = null;
 
@@ -51,8 +51,8 @@ public class AppConfig {
 		} 
 		try {
 			logger.info("读取AppConfig.xml:");
-			XmlMapper mapper = new XmlMapper();
-			config = mapper.readValue(xml, AppConfig.class);
+			//XmlMapper mapper = new XmlMapper();
+			//config = mapper.readValue(xml, AppConfig.class);
 			logger.info("===========ServerConfig================");
 			ServerConfig serverConfig = config.getServerConfig();
 			logger.info("serverName:" + serverConfig.getName());

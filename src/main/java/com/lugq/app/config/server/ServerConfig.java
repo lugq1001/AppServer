@@ -20,9 +20,9 @@ public class ServerConfig {
 	@JacksonXmlProperty(localName = "versionCode")
 	private int verCode = 1;
 	
-	private LogicServer logicServer;
+	private LogicServer logicServer = new LogicServer();
 	
-	private FileServer fileServer;
+	private FileServer fileServer = new FileServer();
 	
 	public String getName() {
 		return name;
