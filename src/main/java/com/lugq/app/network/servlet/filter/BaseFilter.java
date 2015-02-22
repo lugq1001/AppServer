@@ -12,7 +12,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
-//@WebFilter(filterName="BaseFilter",urlPatterns="/*")
+@WebFilter(filterName="BaseFilter", urlPatterns="/*")
 public class BaseFilter implements Filter {
 
 	// 限制访问频率 1秒最多MAX_REQ_PER_SECOND次

@@ -122,12 +122,12 @@
 		<!-- <sourceDirectory>src/main/java</sourceDirectory> -->
 		<!-- <scriptSourceDirectory>src/main/scripts</scriptSourceDirectory> -->
 		<!-- <testSourceDirectory>src/test/java</testSourceDirectory> -->
-		<resources>
+		<!--<resources>
 			<resource>
 				<directory>/</directory>
 				
 			</resource>
-		</resources>
+		</resources>-->
 		<!-- <testResources> <testResource> <directory>src/test/resources</directory> 
 			</testResource> </testResources> -->
 		<pluginManagement>

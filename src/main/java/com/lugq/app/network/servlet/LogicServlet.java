@@ -20,7 +20,7 @@ import com.lugq.app.network.SBMessage;
 import com.lugq.app.util.LangUtil;
 
 
-//@WebServlet(name="LogicServlet", urlPatterns="/logic")  
+@WebServlet(name="LogicServlet", urlPatterns="/logic")  
 public class LogicServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
